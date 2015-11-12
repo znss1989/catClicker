@@ -1,0 +1,4 @@
+.cat {
+    display: flex;
+    flex-wrap: wrap;
+}
