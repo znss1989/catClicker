@@ -1,4 +1,17 @@
-.cat {
+/*h6 {
+    font-size: 1.1em;
+}
+*/
+#list {
     display: flex;
     flex-wrap: wrap;
+}
+
+#list li {
+    text-align: center;
+    padding-right: 15px;
+}
+
+ul {
+    list-style-type: none;
 }
