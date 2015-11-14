@@ -1,4 +1,7 @@
 // Version MVO
+
+// Note: 1) The fixed structures like some tags can be included in the html files, so that the click event will be bond to that id only once. 2) The poke-count update & display could be further separated from the big-cat image for performance enhancement. 3) Calling of data of model in view can be transferred into octopus. 4) The selection click event should be separated from the poke click event (Modified).
+
 var model = {
     catData: [
         {
@@ -59,7 +62,7 @@ var view = {
         }    
     },
 
-    update: function () {
+    updateSel: function () {
         for (var i = 0; i < model.catData.length; ++i) {
             $('#cat' + (i+1)).click((function (iCopy, e) {
                 return function () {
@@ -67,6 +70,8 @@ var view = {
                 }
             })(i));
         } // If user selects one cat
+    },
+    updateClick: function () {
         $('#big-cat').click(function (e) {
             octopus.poke();
         }); // If user pokes the displayed cat
@@ -80,10 +85,6 @@ var view = {
         $('.cat-disp').append('<h3>' + catName + '</h3>');
         $('.cat-disp').append('<img id ="big-cat" src="' + catImgUrl + '" alt="cat ' + catName + '-big">');
         $('.cat-disp').append('<p>You\'ve poked ' + catName + ' ' + catPokeCount + ' times!!</p>'); // Append all contents on the display area
-        /*
-         *  Note that the poke-count update could be further separated for performance
-         *  enhancement.
-         */
     }
 };
 
@@ -91,19 +92,19 @@ var octopus = {
     init: function () {
         model.init(); // Initialize the data model
         view.init(); // Initialize the viewing content
-        view.update();
+        view.updateSel();
     },
 
     sel: function (iCopy) {
         model.sel(iCopy);
         view.disp();
-        view.update();
+        view.updateClick();
     },
 
     poke: function () {
         model.increment();
         view.disp();
-        view.update();
+        view.updateClick();
     }
 };
 
